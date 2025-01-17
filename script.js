@@ -8,22 +8,22 @@ function calculatePricing() {
 
     // Define pricing per core per year for OpenShift OVE
     const openshiftPricing = {
-        standard: 100, // Example price per core per year
-        premium: 150   // Example price per core per year
+        standard: 2180, // Example price per core per year
+        premium: 3270   // Example price per core per year
     };
 
     // Define pricing per core per year for VMware products
     const vmwarePricing = {
-        vvf: 200,       // Example price per core per year
+        vvf: 219.67,       // Example price per core per year
         vcf: 250,       // Example price per core per year
-        entPlus: 300    // Example price per core per year
+        entPlus: 728.91    // Example price per core per year
     };
 
     // Calculate total pricing for OpenShift OVE
-    const openshiftPrice = openshiftPricing[openshiftSupport] * numCores * numHosts * duration;
+    const openshiftPrice = openshiftPricing[openshiftSupport] *  numHosts * duration;
 
     // Calculate total pricing for VMware
-    const vmwarePrice = vmwarePricing[vmwareProduct] * numCores * numHosts * duration;
+    const vmwarePrice = vmwarePricing[vmwareProduct] * numCores *  duration;
 
     // Display the results
     const resultDiv = document.getElementById('result');
