@@ -33,11 +33,13 @@ function calculatePricing() {
     const marginresult = (100-margin);
 
     //calculate Openshift margin
-    const openshiftmargin = openshiftPrice/marginresult;
+    // const openshiftmargin = openshiftPrice/marginresult;
+    const openshiftmargin = openshiftPrice + margin * openshiftPrice;
 
     //calculate VMware margin
-    const vmwaremargin = vmwarePrice/marginresult;
-    
+    // const vmwaremargin = vmwarePrice/marginresult;
+    const vmwaremargin = vmwarePrice + vmwarePrice*margin;    
+
     // Display the results
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = `
