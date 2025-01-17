@@ -16,7 +16,7 @@ function calculatePricing() {
     const vmwarePricing = {
         vvf: 219.67,       // Example price per core per year
         vcf: 250,       // Example price per core per year
-        entPlus: 728.91    // Example price per core per year
+        entPlus: 242.97   // Example price per core per year
     };
 
     // Calculate total pricing for OpenShift OVE
