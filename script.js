@@ -45,7 +45,7 @@ function calculatePricing() {
         <p>OpenShift OVE (${openshiftSupport}): $${openshiftPrice}</p>
         <p>VMware (${vmwareProduct}): $${vmwarePrice}</p>
         <p>Price Difference: $${difference}</p>
-        <p>Openshift Sell Price: $${openshiftmargin}</p>
-        <p>VMware Sell Price: $${vmwaremargin}</p>
+        <p>Openshift Sell Price: $${openshiftmargin.toFixed(2)}</p>
+        <p>VMware Sell Price: $${vmwaremargin.toFixed(2)}</p>
     `;
 }
