@@ -27,16 +27,16 @@ function calculatePricing() {
     const vmwarePrice = vmwarePricing[vmwareProduct] * numCores *  duration;
 
     //Calculate the difference
-    const difference = vmwarePrice - openshiftPrice
+    const difference = vmwarePrice - openshiftPrice;
 
     //calulate margin
-    const marginresult = (100-margin)
+    const marginresult = (100-margin);
 
     //calculate Openshift margin
-    const openshiftmargin = openshiftPrice/marginresult
+    const openshiftmargin = openshiftPrice/marginresult;
 
     //calculate VMware margin
-    const vmwaremargin = vmwarePrice/marginresult
+    const vmwaremargin = vmwarePrice/marginresult;
     
     // Display the results
     const resultDiv = document.getElementById('result');
