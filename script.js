@@ -34,5 +34,6 @@ function calculatePricing() {
         <h2>Pricing Comparison</h2>
         <p>OpenShift OVE (${openshiftSupport}): $${openshiftPrice}</p>
         <p>VMware (${vmwareProduct}): $${vmwarePrice}</p>
+        <p>Price Difference: $${difference}</p>
     `;
 }
