@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Prices</title>
+    <script src="priceupdate.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            margin-bottom: 15px;
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Update Prices</h1>
+    <form id="updatePricesForm">
+        <h2>OpenShift OVE Pricing</h2>
+        <label for="openshiftStandard">Standard (per core/year):</label>
+        <input type="number" id="openshiftStandard" step="0.01">
+
+        <label for="openshiftPremium">Premium (per core/year):</label>
+        <input type="number" id="openshiftPremium" step="0.01">
+
+        <h2>VMware Pricing</h2>
+        <label for="vmwareVVF">VVF (per core/year):</label>
+        <input type="number" id="vmwareVVF" step="0.01">
+
+        <label for="vmwareVCF">VCF (per core/year):</label>
+        <input type="number" id="vmwareVCF" step="0.01">
+
+        <label for="vmwareEntPlus">Enterprise Plus (per core/year):</label>
+        <input type="number" id="vmwareEntPlus" step="0.01">
+
+        <button type="button" id="savePrices">Save Prices</button>
+    </form>
+    <p id="statusMessage"></p>
+</body>
+</html>
