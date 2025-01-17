@@ -25,6 +25,9 @@ function calculatePricing() {
     // Calculate total pricing for VMware
     const vmwarePrice = vmwarePricing[vmwareProduct] * numCores *  duration;
 
+    //Calculate the difference
+    const difference = vmwarePrice - openshiftPrice
+
     // Display the results
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = `
