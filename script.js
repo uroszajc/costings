@@ -5,6 +5,7 @@ function calculatePricing() {
     const openshiftSupport = document.getElementById('openshiftSupport').value;
     const vmwareProduct = document.getElementById('vmwareProduct').value;
     const duration = parseInt(document.getElementById('duration').value);
+    const margin = parseInt(document.getElementById('margin').value);
 
     // Define pricing per core per year for OpenShift OVE
     const openshiftPricing = {
@@ -28,6 +29,15 @@ function calculatePricing() {
     //Calculate the difference
     const difference = vmwarePrice - openshiftPrice
 
+    //calulate margin
+    const marginresult = (100-margin)
+
+    //calculate Openshift margin
+    const openshiftmargin = openshiftPrice/marginresult
+
+    //calculate VMware margin
+    const vmwaremargin = vmwarePrice/marginresult
+    
     // Display the results
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = `
@@ -35,5 +45,7 @@ function calculatePricing() {
         <p>OpenShift OVE (${openshiftSupport}): $${openshiftPrice}</p>
         <p>VMware (${vmwareProduct}): $${vmwarePrice}</p>
         <p>Price Difference: $${difference}</p>
+        <p>Openshift margin: $${openshiftmargin}</p>
+        <p>VWare Margin: $${vmwaremargin}</p>
     `;
 }
