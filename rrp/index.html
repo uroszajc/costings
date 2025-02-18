@@ -41,6 +41,10 @@
     <div id="result"></div>
 
     <script>
+        function formatCurrency(value) {
+            return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        }
+
         function calculatePricing() {
             // Get user inputs
             const numCores = parseInt(document.getElementById('numCores').value);
