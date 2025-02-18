@@ -26,23 +26,23 @@ function calculatePricing() {
     // Calculate total pricing for VMware
     const vmwarePrice = vmwarePricing[vmwareProduct] * numCores *  duration;
 
-    //Calculate the difference
-    const difference = vmwarePrice - openshiftPrice;
+
 
 
  //MArkup calculator   Sell Price = Buy Price / (1 - Margin Percentage / 100)
 
     //calculate Openshift margin
     const openshiftmargin = openshiftPrice / (1 - margin /100);
-
     //calculate VMware margin
     const vmwaremargin = vmwarePrice / (1 - margin /100);    
-
+    //Calculate the difference
+    const difference = vmwaremargin - openshiftmargin;
     // Display the results
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = `
-        <h2>Pricing Comparison</h2>
-
+        <h2>Pricing Comparison</h2>   
+        <p>Our Buy Price Difference: $${difference}</p>
+       <br>
         <p>Openshift Sell Price: $${openshiftmargin.toFixed(2)}</p>
         <p>VMware Sell Price: $${vmwaremargin.toFixed(2)}</p>
     `;
