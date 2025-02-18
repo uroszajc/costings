@@ -80,10 +80,10 @@
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
                 <h2>Pricing Comparison</h2>
-                <p>OpenShift OVE (${openshiftSupport}) Sell Price: $${openshiftSellPrice.toFixed(2)}</p>
-                <p>VMware (${vmwareProduct}) Sell Price: $${vmwareSellPrice.toFixed(2)}</p>
+                <p>OpenShift OVE (${openshiftSupport}) Sell Price: ${formatCurrency(openshiftSellPrice)}</p>
+                <p>VMware (${vmwareProduct}) Sell Price: ${formatCurrency(vmwareSellPrice)}</p>
                 <br>
-                <p>Sell Price Difference: $${sellPriceDifference.toFixed(2)}</p>
+                <p>Sell Price Difference: ${formatCurrency(sellPriceDifference)}</p>
             `;
         }
     </script>
