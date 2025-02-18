@@ -5,7 +5,7 @@ function calculatePricing() {
     const openshiftSupport = document.getElementById('openshiftSupport').value;
     const vmwareProduct = document.getElementById('vmwareProduct').value;
     const duration = parseInt(document.getElementById('duration').value);
-    const margin = parseInt(document.getElementById('margin').value);
+    const margin = 10;
 
     // Define pricing per core per year for OpenShift OVE
     const openshiftPricing = {
