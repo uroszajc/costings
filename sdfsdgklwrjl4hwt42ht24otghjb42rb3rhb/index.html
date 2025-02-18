@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Comparison Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Buy Price Comparison Calculator</h1>
+    <form id="pricing-form">
+        <label for="numCores">Total Number of Cores:</label>
+        <input type="number" id="numCores" name="numCores" required><br>
+
+        <label for="numHosts">Number of Hosts:</label>
+        <input type="number" id="numHosts" name="numHosts" required><br>
+
+        <label for="openshiftSupport">OpenShift OVE Support:</label>
+        <select id="openshiftSupport" name="openshiftSupport" required>
+            <option value="standard">Standard</option>
+            <option value="premium">Premium</option>
+        </select><br>
+
+        <label for="vmwareProduct">VMware Product:</label>
+        <select id="vmwareProduct" name="vmwareProduct" required>
+            <option value="vvf">VMware VVF</option>
+            <option value="vcf">VMware VCF</option>
+            <option value="entPlus">VMware Enterprise Plus</option>
+        </select><br>
+
+        <label for="duration">Duration (years):</label>
+        <select id="duration" name="duration" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select><br>
+        
+        <button type="button" onclick="calculatePricing()">Calculate</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function formatCurrency(value) {
+            return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        }
+
+        function calculatePricing() {
+            // Get user inputs
+            const numCores = parseInt(document.getElementById('numCores').value);
+            const numHosts = parseInt(document.getElementById('numHosts').value);
+            const openshiftSupport = document.getElementById('openshiftSupport').value;
+            const vmwareProduct = document.getElementById('vmwareProduct').value;
+            const duration = parseInt(document.getElementById('duration').value);
+            const margin = 15; // Fixed margin of 15%
+
+            // Define pricing per core per year for OpenShift OVE
+            const openshiftPricing = {
+                standard: 2180, // Example price per core per year
+                premium: 3270   // Example price per core per year
+            };
+
+            // Define pricing per core per year for VMware products
+            const vmwarePricing = {
+                vvf: 219.67,       // Example price per core per year
+                vcf: 250,       // Example price per core per year
+                entPlus: 242.97   // Example price per core per year
+            };
+
+            // Calculate total pricing for OpenShift OVE
+            const openshiftPrice = openshiftPricing[openshiftSupport] * numHosts * duration;
+
+            // Calculate total pricing for VMware
+            const vmwarePrice = vmwarePricing[vmwareProduct] * numCores * duration;
+
+            // Calculate the sell prices with 15% margin
+            const openshiftSellPrice = openshiftPrice / (1 - margin / 100);
+            const vmwareSellPrice = vmwarePrice / (1 - margin / 100);
+
+            // Calculate the sell price difference
+            const sellPriceDifference = vmwareSellPrice - openshiftSellPrice;
+
+            // Display the results
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <h2>Pricing Comparison</h2>
+                <p>OpenShift OVE (${openshiftSupport}) Sell Price: ${formatCurrency(openshiftSellPrice)}</p>
+                <p>VMware (${vmwareProduct}) Sell Price: ${formatCurrency(vmwareSellPrice)}</p>
+                <br>
+                <p>Sell Price Difference: ${formatCurrency(sellPriceDifference)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
