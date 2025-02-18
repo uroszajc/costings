@@ -43,8 +43,7 @@ function calculatePricing() {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = `
         <h2>Pricing Comparison</h2>   
-        <p>Our Buy Price Difference: $${difference.toFixed(2)}</p>
-       <br>
+
         <p>Openshift Sell Price: $${openshiftmargin.toFixed(2)}</p>
         <p>VMware Sell Price: $${vmwaremargin.toFixed(2)}</p>
     `;
