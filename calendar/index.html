@@ -1,69 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>TradingView Events Widget</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background: #181A20;
-    }
-    .tradingview-widget-container {
-      width: 100vw;
-      height: 100vh;
-      min-height: 500px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: stretch;
-      /* Hide the widget initially */
-      display: none;
-    }
-    .tradingview-widget-copyright {
-      text-align: center;
-      margin-top: 10px;
-      font-size: 14px;
-      color: #888;
-    }
-    .blue-text {
-      color: #2962FF;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>TradingView Events Widget</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body {
+height: 100%;
+margin: 0;
+padding: 0;
+background: #181A20;
+}
+.tradingview-widget-container {
+width: 100vw;
+height: 100vh;
+min-height: 500px;
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: stretch;
+}
+.tradingview-widget-copyright {
+text-align: center;
+margin-top: 10px;
+font-size: 14px;
+color: #888;
+}
+.blue-text {
+color: #2962FF;
+}
+</style>
 </head>
 <body>
-  <!-- TradingView Widget BEGIN -->
-  <div class="tradingview-widget-container" id="tv-widget-container">
-    <div class="tradingview-widget-container__widget"></div>
-    <div class="tradingview-widget-copyright">
-      <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-        <span class="blue-text">Track all markets on TradingView</span>
-      </a>
-    </div>
-  </div>
-  <!-- TradingView Widget END -->
-<!--   <script>
-    // Wait 5 seconds, then show the widget and add the TradingView script
-    setTimeout(function() {
-      document.getElementById('tv-widget-container').style.display = 'flex';
-      var script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-events.js';
-      script.async = true;
-      script.innerHTML = JSON.stringify({
-        "colorTheme": "dark",
-        "isTransparent": false,
-        "locale": "en",
-        "countryFilter": "us,ca,gb,eu,au,nz,ch,jp",
-        "importanceFilter": "-1,0,1",
-        "width": "100%",
-        "height": "100%"
-      });
-      document.querySelector('.tradingview-widget-container__widget').appendChild(script);
-    }, 5000);
-  </script> -->
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<div class="tradingview-widget-copyright">
+<a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+<span class="blue-text">Track all markets on TradingView</span>
+</a>
+</div>
+<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+{
+"colorTheme": "dark",
+"isTransparent": false,
+"locale": "en",
+"countryFilter": "us,ca,gb,eu,au,nz,ch,jp",
+"importanceFilter": "-1,0,1",
+"width": "100%",
+"height": "100%"
+}
+</script>
+</div>
+<!-- TradingView Widget END -->
 </body>
 </html>
