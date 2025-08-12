@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VM Sizing Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  form {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+  }
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 1.1em;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #005bb5;
+  }
+  #result {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+  <h1>VM Sizing Calculator</h1>
+  <form id="sizingForm">
+    <label for="vms">Number of VMs:</label>
+    <input type="number" id="vms" value="50" min="1">
+
+    <label for="vcpus">vCPUs per VM:</label>
+    <input type="number" id="vcpus" value="2" min="1">
+
+    <label for="ram">Memory per VM (GiB):</label>
+    <input type="number" id="ram" value="8" min="1">
+
+    <label for="ratio">Overcommit Ratio:</label>
+    <input type="number" step="0.1" id="ratio" value="2" min="0.1">
+
+    <label for="ha">HA Reserve % (as decimal):</label>
+    <input type="number" step="0.01" id="ha" value="0.2" min="0" max="0.9">
+
+    <button type="button" onclick="calculate()">Calculate</button>
+  </form>
+
+  <div id="result"></div>
+
+<script>
+function calculate() {
+  const vms = Number(document.getElementById('vms').value);
+  const vcpus = Number(document.getElementById('vcpus').value);
+  const ram = Number(document.getElementById('ram').value);
+  const ratio = Number(document.getElementById('ratio').value);
+  const ha = Number(document.getElementById('ha').value);
+
+  const totalVcpus = vms * vcpus;
+  const totalRam = vms * ram;
+
+  const physicalCpus = Math.ceil(totalVcpus / ratio);
+  const physicalRam = Math.ceil(totalRam / (1 - ha));
+
+  document.getElementById('result').innerHTML =
+    `Physical CPUs Needed: ${physicalCpus}<br>
+     Physical RAM Needed: ${physicalRam} GiB`;
+}
+</script>
+</body>
+</html>
