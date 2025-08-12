@@ -78,6 +78,12 @@
     <label for="ha">HA Reserve % (as decimal):</label>
     <input type="number" step="0.01" id="ha" value="0.2" min="0" max="0.9">
 
+    <label for="cpuOverhead">CPU Overhead (cores):</label>
+    <input type="number" id="cpuOverhead" value="4" min="0">
+
+    <label for="ramOverhead">RAM Overhead (GiB):</label>
+    <input type="number" id="ramOverhead" value="16" min="0">
+
     <button type="button" onclick="calculate()">Calculate</button>
   </form>
 
@@ -86,16 +92,24 @@
 <script>
 function calculate() {
   const vms = Number(document.getElementById('vms').value);
-  const vcpus = Number(document.getElementById('vcpus').value);
-  const ram = Number(document.getElementById('ram').value);
+  const vcpusPerVM = Number(document.getElementById('vcpus').value);
+  const ramPerVM = Number(document.getElementById('ram').value);
   const ratio = Number(document.getElementById('ratio').value);
   const ha = Number(document.getElementById('ha').value);
+  const cpuOverhead = Number(document.getElementById('cpuOverhead').value);
+  const ramOverhead = Number(document.getElementById('ramOverhead').value);
 
-  const totalVcpus = vms * vcpus;
-  const totalRam = vms * ram;
+  // workloads total
+  const totalVcpusNeeded = vms * vcpusPerVM;
+  const totalRamNeeded = vms * ramPerVM;
 
-  const physicalCpus = Math.ceil(totalVcpus / ratio);
-  const physicalRam = Math.ceil(totalRam / (1 - ha));
+  // add overhead to workloads before HA/overcommit adjustments
+  const totalVcpusWithOverhead = totalVcpusNeeded + cpuOverhead;
+  const totalRamWithOverhead = totalRamNeeded + ramOverhead;
+
+  // apply overcommit and HA reserve
+  const physicalCpus = Math.ceil(totalVcpusWithOverhead / ratio);
+  const physicalRam = Math.ceil(totalRamWithOverhead / (1 - ha));
 
   document.getElementById('result').innerHTML =
     `Physical CPUs Needed: ${physicalCpus}<br>
