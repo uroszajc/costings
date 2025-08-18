@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OpenShift Cluster Sizer v2.1</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; background: #f9f9f9; }
+    h1 { color: #b31b1b; margin-top: 0.5em; }
+    .logo { max-width: 300px; margin-bottom: 1em; }
+    .workload-row {
+      display: flex;
+      gap: 1em;
+      margin-bottom: 1em;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    select, input {
+      padding: 5px;
+      width: 150px;
+    }
+    button {
+      padding: 5px 10px;
+      background: #b31b1b;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .icon-btn {
+      font-size: 1.2em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #b31b1b;
+    }
+    .result {
+      margin-top: 2em;
+      padding: 1em;
+      background: #fff;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <img src="https://atturra.com/wp-content/uploads/2024/01/attura-logog-300x71.png" alt="Atturra Logo" class="logo">
+  <h1>OpenShift Virtualization Cluster Sizer</h1>
+
+  <div id="workloads">
+    <div class="workload-row">
+      <select class="type">
+        <option value="general">General VM</option>
+        <option value="sql">SQL Server</option>
+        <option value="vdi">VDI</option>
+        <option value="oracle">Oracle Server</option>
+        <option value="file">File Server</option>
+      </select>
+      <input type="number" class="vcpu" placeholder="vCPU">
+      <input type="number" class="memory" placeholder="Memory (GiB)">
+      <input type="number" class="storage" placeholder="Storage (GiB)">
+      <button class="icon-btn" onclick="addWorkload(this)">＋</button>
+      <button class="icon-btn" onclick="deleteWorkload(this)">－</button>
+    </div>
+  </div>
+
+  <div class="workload-row">
+    <input type="number" id="years" placeholder="Years to size for">
+    <input type="number" id="growth" placeholder="Year-on-Year Growth (%)">
+    <button onclick="calculateSizer()">Calculate</button>
+  </div>
+
+  <div class="result" id="output"></div>
+
+  <script src="sizer.js"></script>
+</body>
+</html>
