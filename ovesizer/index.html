@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OpenShift Virtualization Cluster Sizer</title>
+<style>
+    body { font-family: Arial, sans-serif; margin: 2em; background: #f9f9f9; }
+    h1 { color: #b31b1b; margin-top: 0.5em; }
+    label { display: block; margin-top: 1em; }
+    input { width: 200px; padding: 5px; }
+    button { margin-top: 1em; padding: 10px 20px; background: #b31b1b; color: white; border: none; cursor: pointer; }
+    .result { margin-top: 2em; padding: 1em; background: #fff; border: 1px solid #ccc; }
+    .logo { max-width: 200px; margin-bottom: 1em; }
+</style>
+</head>
+<body>
+<!-- Replace with actual Atturra logo URL -->
+<img src="https://atturra.com/wp-content/uploads/2024/01/attura-logog-300x71.png" alt="Atturra Logo" class="logo">
+ 
+  <h1>OpenShift Virtualization Cluster Sizer</h1>
+ 
+  <label>Total vCPU required (Year 1):</label>
+<input type="number" id="vcpu" placeholder="e.g. 8000">
+ 
+  <label>Total Memory required (GiB, Year 1):</label>
+<input type="number" id="memory" placeholder="e.g. 37600">
+ 
+  <label>Total HDD size required (GiB, Year 1):</label>
+<input type="number" id="storage" placeholder="e.g. 100000">
+ 
+  <label>Years to size for:</label>
+<input type="number" id="years" placeholder="e.g. 3">
+ 
+  <label>Year-on-Year Growth (%):</label>
+<input type="number" id="growth" placeholder="e.g. 10">
+ 
+  <button onclick="calculateSizer()">Calculate</button>
+ 
+  <div class="result" id="output"></div>
+ 
+  <script>
+    function calculateSizer() {
+      const vcpu = parseFloat(document.getElementById('vcpu').value);
+      const memory = parseFloat(document.getElementById('memory').value);
+      const storage = parseFloat(document.getElementById('storage').value);
+      const years = parseFloat(document.getElementById('years').value);
+      const growthRate = parseFloat(document.getElementById('growth').value) / 100;
+ 
+      // Compound growth calculation
+      const growthFactor = Math.pow(1 + growthRate, years);
+ 
+      const futureVcpu = vcpu * growthFactor;
+      const futureMemory = memory * growthFactor;
+      const futureStorage = storage * growthFactor;
+ 
+      // Overcommit ratios
+      const cpuOvercommit = 4;
+      const memoryOvercommit = 2;
+ 
+      const physicalCPU = futureVcpu / cpuOvercommit;
+      const physicalMemory = futureMemory / memoryOvercommit;
+ 
+      // Node specs
+      const nodeCPU = 192;
+      const nodeMemory = 2048;
+      const bufferFactor = 1.22;
+ 
+      const totalCPU = physicalCPU * bufferFactor;
+      const totalMemory = physicalMemory * bufferFactor;
+ 
+      const nodesByCPU = Math.ceil(totalCPU / nodeCPU);
+      const nodesByMemory = Math.ceil(totalMemory / nodeMemory);
+      let totalNodes = Math.max(nodesByCPU, nodesByMemory);
+ 
+      if (totalNodes < 3) {
+        totalNodes = 3;
+      }
+ 
+      document.getElementById('output').innerHTML = `
+<h2>Cluster Sizing Result</h2>
+<p><strong>Projected vCPU Requirement (Year ${years}):</strong> ${futureVcpu.toFixed(2)} cores</p>
+<p><strong>Projected Memory Requirement (Year ${years}):</strong> ${futureMemory.toFixed(2)} GiB</p>
+<p><strong>Projected Storage Requirement (Year ${years}):</strong> ${futureStorage.toFixed(2)} GiB</p>
+<p><strong>Adjusted Physical CPU Required:</strong> ${totalCPU.toFixed(2)} cores</p>
+<p><strong>Adjusted Physical Memory Required:</strong> ${totalMemory.toFixed(2)} GiB</p>
+<p><strong>Estimated Node Count:</strong> ${totalNodes} nodes (192 cores / 2048GiB each)</p>
+<p><strong>Years Sized For:</strong> ${years} year(s) with ${growthRate * 100}% annual growth</p>
+      `;
+    }
+</script>
+</body>
+</html>
