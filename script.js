@@ -9,8 +9,8 @@ function calculatePricing() {
 
     // Define pricing per core per year for OpenShift OVE
     const openshiftPricing = {
-        standard: 2180, // Example price per core per year
-        premium: 3270   // Example price per core per year
+        standard: 2290, // Example price per core per year
+        premium: 3436   // Example price per core per year
     };
 
     // Define pricing per core per year for VMware products
